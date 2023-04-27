@@ -13,7 +13,7 @@ services:
     django:
         build:
             context: django_app
-            dockerfile: django_app/Dockerfile
+            dockerfile: Dockerfile
         container_name: django
         command: /bin/bash -c "exec invoke run"
 #        command: python3 manage.py runserver 0.0.0.0:8000
