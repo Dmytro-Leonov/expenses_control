@@ -4,6 +4,17 @@ import time
 
 from invoke import task
 
+import os
+
+
+def get_clear_db_query(file_name="clear.sql"):
+    with open(file_name, "r") as f:
+        clear_db_query = f.read()
+
+    clear_db_query = clear_db_query.format(db_user=os.environ.get("POSTGRES_USER"))
+
+    return clear_db_query
+
 
 def wait_port_is_open(host, port):
     import socket
@@ -28,9 +39,13 @@ def devcron(ctx, crontab_name="crontab"):
 @task
 def init_db(ctx, recreate_db=False):
     wait_port_is_open(os.getenv("POSTGRES_HOST", "db"), 5432)
+
     if recreate_db:
-        ctx.run("python -m manage dbshell < clear.sql")
+        clear_db_query = get_clear_db_query()
+
+        ctx.run(f"echo '{clear_db_query}' | python -m manage dbshell")
         ctx.run("python -m manage dbshell < ./db.dump")
+
     ctx.run("python -m manage makemigrations")
     ctx.run("python -m manage migrate")
 
