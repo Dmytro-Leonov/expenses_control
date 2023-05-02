@@ -42,7 +42,7 @@ def collect_static_element(ctx):
 
 @task
 def run(ctx):
-    init_db(ctx, recreate_db=False)
+    init_db(ctx, recreate_db=True)
     collect_static_element(ctx)
 
     # thread_cron = threading.Thread(target=devcron, args=(ctx,))
