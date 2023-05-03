@@ -24,17 +24,17 @@ services:
             - pgdb
         env_file: django_app/.env
 
-#    react:
-#        image: node:18.16.0
-#        container_name: react
-#        volumes:
-#            - ./frontend:/frontend
-#        working_dir: /frontend
-#        expose:
-#            - 5173
-#        ports:
-#            - "5173:5173"
-#        command: bash -c "npm install && npm run dev"
+    react:
+        image: node:18.16.0
+        container_name: react
+        volumes:
+            - ./frontend:/frontend
+        working_dir: /frontend
+        expose:
+            - 5173
+        ports:
+            - "5173:5173"
+        command: bash -c "npm install && npm run dev"
 
     nginx:
         image: nginx:1.23.0
