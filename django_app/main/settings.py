@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ["*"]
 
 LOCAL_APPS = [
     "expenses_control.users.apps.UsersConfig",
+    "expenses_control.authentication.apps.AuthenticationConfig",
+    "expenses_control.api.apps.ApiConfig",
 ]
 
 THIRD_PARTY_APPS = [
