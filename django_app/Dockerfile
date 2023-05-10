@@ -1,5 +1,4 @@
 FROM python:3.9
-ENV PYTHONUNBUFFERED = 1
 RUN apt-get update && apt-get upgrade -y\
     && apt-get install software-properties-common -y\
     && add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main"\
