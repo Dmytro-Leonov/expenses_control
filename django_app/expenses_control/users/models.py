@@ -1,5 +1,7 @@
 from django.db import models
 
+from django.core.validators import MinValueValidator
+
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 from django.conf import settings
@@ -39,7 +41,10 @@ class User(AbstractBaseUser):
     username = models.CharField(max_length=150)
     email = models.EmailField(unique=True)
 
-    daily_limit = models.FloatField(default=settings.DEFAULT_DAILY_LIMIT)
+    daily_limit = models.FloatField(
+        default=settings.DEFAULT_DAILY_LIMIT,
+        validators=[MinValueValidator(0, "Daily limit must be positive")],
+    )
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
