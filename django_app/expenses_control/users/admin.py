@@ -23,3 +23,38 @@ class UserAdmin(BaseUserAdmin):
     )
 
     readonly_fields = ("last_login",)
+
+
+    def get_readonly_fields(self, request, obj=None):
+        user = request.user
+        readonly_fields = self.readonly_fields
+
+        if user.is_staff and not user.is_superuser:
+            # staff member can't change sensitive fields
+            readonly_fields += ("is_staff", "is_superuser", "groups", "user_permissions",)
+
+            if not obj:
+                return readonly_fields
+
+            # staff member can't change other staff members
+            if obj.is_staff and user != obj:
+                readonly_fields += ("is_active", "username", "email",)
+
+            # staff member can't deactivate himself
+            if user == obj:
+                readonly_fields += ("is_active",)
+
+        return readonly_fields
+
+    def has_delete_permission(self, request, obj=None):
+        user = request.user
+
+        if not obj:
+            return super().has_delete_permission(request, obj)
+
+        # superuser can delete anyone
+        if user.is_superuser:
+            return True
+
+        # staff member can't delete other staff members
+        return not obj.is_staff
