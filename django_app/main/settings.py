@@ -39,6 +39,8 @@ LOCAL_APPS = [
 
 THIRD_PARTY_APPS = [
     "corsheaders",
+    "rest_framework",
+    "knox",
 ]
 
 INSTALLED_APPS = [
@@ -147,3 +149,8 @@ CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
 
 
 DEFAULT_DAILY_LIMIT = 100
+
+REST_FRAMEWORK = {
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
+    "DEFAULT_AUTHENTICATION_CLASSES": [],
+}
