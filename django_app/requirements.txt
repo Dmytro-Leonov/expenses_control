@@ -4,3 +4,4 @@ django-cors-headers==3.14.0
 djangorestframework==3.14.0
 django-filter==23.2
 invoke==2.0.0
+django-rest-knox==4.2.0
