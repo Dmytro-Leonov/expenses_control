@@ -20,6 +20,7 @@ class UserLoginEmailPasswordLoginApi(APIView):
             "id": serializers.IntegerField(),
             "username": serializers.CharField(),
             "email": serializers.EmailField(),
+            "daily_limit": serializers.FloatField(),
         })
         token = serializers.CharField()
 
