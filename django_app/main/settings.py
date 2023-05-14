@@ -32,9 +32,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 LOCAL_APPS = [
-    "expenses_control.users.apps.UsersConfig",
-    "expenses_control.authentication.apps.AuthenticationConfig",
-    "expenses_control.api.apps.ApiConfig",
+    "users.apps.UsersConfig",
 ]
 
 THIRD_PARTY_APPS = [
@@ -152,7 +150,12 @@ DEFAULT_DAILY_LIMIT = 100
 
 REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
-    "DEFAULT_AUTHENTICATION_CLASSES": [],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "knox.auth.TokenAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ]
 }
 
 REST_KNOX = {
