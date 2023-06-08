@@ -38,7 +38,7 @@ def devcron(ctx, crontab_name="crontab"):
 
 @task
 def init_db(ctx, recreate_db=False):
-    wait_port_is_open(os.getenv("POSTGRES_HOST", "db"), 5432)
+    wait_port_is_open(os.getenv("POSTGRES_HOST"), int(os.getenv("POSTGRES_PORT")))
 
     if recreate_db:
         clear_db_query = get_clear_db_query()
